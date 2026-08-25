@@ -1,16 +1,10 @@
-# React + Vite
+# WomenIT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**A career-progression platform for women in Sri Lanka's IT industry.**
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+WomenIT exists to help women who are *already* working in Sri Lankan tech advance in
+their careers and stay in the industry. It brings together three things that are hard
+to find in one place: honest career stories from women a few steps ahead, a curated job
+board that surfaces flexibility and seniority rather than burying them, and training
+workshops from organisations invested in this work. Built in alignment with SLASSCOM
+and Women in Tech Sri Lanka.
