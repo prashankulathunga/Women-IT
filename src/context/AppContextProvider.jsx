@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react'
 
 const AppContext = createContext()
-export const AppConstextProvider = ({ children }) => {
+export const AppContextProvider = ({ children }) => {
 
 	const value = {
-		isUser: true,
+		isUser: false,
 	}
 
 	return <AppContext.Provider value={value}>
