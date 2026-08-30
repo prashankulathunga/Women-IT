@@ -4,7 +4,7 @@ const AppContext = createContext()
 export const AppContextProvider = ({ children }) => {
 
 	const value = {
-		isUser: false,
+		isUser: false
 	}
 
 	return <AppContext.Provider value={value}>
