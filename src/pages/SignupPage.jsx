@@ -65,7 +65,7 @@ const ArrowIcon = ({ className = "" }) => (
 	</svg>
 );
 
-export const LoginPage = () => {
+export const SignupPage = () => {
 	const [accountType, setAccountType] = useState("jobseeker");
 	const [showPassword, setShowPassword] = useState(false);
 	const [formData, setFormData] = useState({ email: "", password: "" });
@@ -77,7 +77,7 @@ export const LoginPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// TODO: wire up authentication once the API is available
+		// TODO: wire up account creation once the API is available
 	};
 
 	const tabClass = (type) =>
@@ -96,7 +96,7 @@ export const LoginPage = () => {
 							Aruna
 						</h1>
 						<p className="mt-2 text-sm text-gray-500">
-							Log in to your account to continue
+							Create your account to continue
 						</p>
 					</div>
 
@@ -136,7 +136,7 @@ export const LoginPage = () => {
 					<div className="mt-6 flex items-center gap-3">
 						<span className="h-px flex-1 bg-gray-200" />
 						<span className="text-[11px] font-medium tracking-wide text-gray-400">
-							OR LOG IN WITH EMAIL
+							OR REGISTER WITH EMAIL
 						</span>
 						<span className="h-px flex-1 bg-gray-200" />
 					</div>
@@ -144,13 +144,13 @@ export const LoginPage = () => {
 					<form onSubmit={handleSubmit} className="mt-6 space-y-5">
 						<div>
 							<label
-								htmlFor="login-email"
+								htmlFor="signup-email"
 								className="block text-sm font-medium text-gray-800"
 							>
 								Email Address
 							</label>
 							<input
-								id="login-email"
+								id="signup-email"
 								name="email"
 								type="email"
 								required
@@ -164,19 +164,19 @@ export const LoginPage = () => {
 
 						<div>
 							<label
-								htmlFor="login-password"
+								htmlFor="signup-password"
 								className="block text-sm font-medium text-gray-800"
 							>
 								Password
 							</label>
 							<div className="relative mt-2">
 								<input
-									id="login-password"
+									id="signup-password"
 									name="password"
 									type={showPassword ? "text" : "password"}
 									required
 									minLength={8}
-									autoComplete="current-password"
+									autoComplete="new-password"
 									value={formData.password}
 									onChange={handleChange}
 									placeholder="••••••••"
@@ -191,24 +191,37 @@ export const LoginPage = () => {
 									<EyeIcon open={showPassword} />
 								</button>
 							</div>
+							<p className="mt-2 text-xs text-gray-400">
+								Must be at least 8 characters.
+							</p>
 						</div>
 
 						<button
 							type="submit"
 							className="group mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-[#020079] py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-[#020079]/90"
 						>
-							LOG IN
+							CREATE ACCOUNT
 							<ArrowIcon className="transition-transform group-hover:translate-x-1" />
 						</button>
 					</form>
 
-					<p className="mt-8 text-center text-sm text-gray-500">
-						Don&apos;t have an account?{" "}
+					<p className="mt-6 text-center text-xs text-gray-500">
+						By signing up, you agree to our{" "}
+						<span className="font-medium text-[#020079]">
+							Terms of Service
+						</span>{" "}
+						and <span className="font-medium text-[#020079]">Privacy Policy</span>.
+					</p>
+
+					<hr className="mt-6 border-gray-200" />
+
+					<p className="mt-6 text-center text-sm text-gray-500">
+						Already have an account?{" "}
 						<Link
-							to="/signup"
+							to="/login"
 							className="font-medium text-[#020079] hover:underline"
 						>
-							Sign up here
+							Log in here
 						</Link>
 					</p>
 				</div>

@@ -1,7 +1,7 @@
 export const Header = () => {
   return (
     <div>
-      <div className="max-lg:collapse bg-base-200 lg:mb-48 shadow-sm w-full rounded-md">
+      <div className="max-lg:collapse bg-base-200 shadow-sm w-full rounded-md">
 
         <input
           id="navbar-1-toggle"
