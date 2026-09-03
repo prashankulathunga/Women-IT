@@ -1,25 +1,18 @@
 import { Route, Routes } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
-import { useAppContext } from './context/AppContextProvider';
 import { LoginPage } from './pages/LoginPage';
+import { DashboardPage } from './pages/DashboardPage';
+import { SignupPage } from './pages/SignupPage';
 
 function App() {
-
-
-	const { isUser } = useAppContext();
 
 	return (
 		<div>
 			<Routes>
-				{
-					isUser ? (
-
-						<Route index element={<LandingPage />} />
-					) : (
-
-						<Route index element={<LoginPage />} />
-					)
-				}
+				<Route path="/" element={<LandingPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/signup" element={<SignupPage />} />
+				<Route path="/dashboard" element={<DashboardPage />} />
 			</Routes>
 		</div>
 	)
