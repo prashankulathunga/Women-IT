@@ -81,10 +81,9 @@ export const LoginPage = () => {
 	};
 
 	const tabClass = (type) =>
-		`rounded-md py-2 text-sm font-semibold transition-colors cursor-pointer ${
-			accountType === type
-				? "bg-white text-gray-900 shadow-sm"
-				: "text-gray-500 hover:text-gray-700"
+		`rounded-md py-2 text-sm font-semibold transition-colors cursor-pointer ${accountType === type
+			? "bg-white text-gray-900 shadow-sm"
+			: "text-gray-500 hover:text-gray-700"
 		}`;
 
 	return (
@@ -192,7 +191,7 @@ export const LoginPage = () => {
 								</button>
 							</div>
 						</div>
-						
+
 
 						<button
 							type="submit"

@@ -21,7 +21,6 @@ const ArrowIcon = ({ className = "" }) => (
 export const LandingPage = () => {
 	return (
 		<div className="flex min-h-screen flex-col bg-[#FAF9F5]">
-			<Header />
 
 			<main className="flex-1">
 				<Section>
