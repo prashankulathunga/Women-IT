@@ -1,7 +1,217 @@
 @import 'tailwindcss';
 @plugin "daisyui" {
-    themes: light --default;
+	themes: light --default;
 }
 
+/* ==========================================================================
+   Aruna Design System — design tokens
+   Every colour, type ramp, radius and shadow used by the product is declared
+   here once. Components consume the generated utilities (bg-brand-900,
+   text-ink-600, rounded-card, shadow-elevated …) and never hard-code hex.
+   ========================================================================== */
+@theme {
+	/* -- Typography ------------------------------------------------------- */
+	--font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+		Roboto, Helvetica, Arial, sans-serif;
+	--font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
 
+	/* -- Brand: deep indigo ----------------------------------------------- */
+	--color-brand-50: #f2f2fb;
+	--color-brand-100: #e4e4f7;
+	--color-brand-200: #c6c6ef;
+	--color-brand-300: #9e9ee2;
+	--color-brand-400: #7070d2;
+	--color-brand-500: #4a4abe;
+	--color-brand-600: #3232a6;
+	--color-brand-700: #21218f;
+	--color-brand-800: #121284;
+	--color-brand-900: #020079;
+	--color-brand-950: #01004a;
 
+	/* -- Accent: plum ------------------------------------------------------ */
+	--color-plum-50: #fdf2f6;
+	--color-plum-100: #fbe6ee;
+	--color-plum-200: #f6ccdd;
+	--color-plum-300: #eea3c2;
+	--color-plum-400: #e2709f;
+	--color-plum-500: #d0447e;
+	--color-plum-600: #b52a63;
+	--color-plum-700: #94204f;
+	--color-plum-800: #7a1e43;
+	--color-plum-900: #661c3b;
+
+	/* -- Ink: warm neutral text + borders ---------------------------------- */
+	--color-ink-50: #f7f7f6;
+	--color-ink-100: #edede9;
+	--color-ink-200: #dedbd3;
+	--color-ink-300: #b8b6b0;
+	--color-ink-400: #8c8a84;
+	--color-ink-500: #6b6963;
+	--color-ink-600: #55534e;
+	--color-ink-700: #44423e;
+	--color-ink-800: #2e2d2a;
+	--color-ink-900: #1c1b19;
+	--color-ink-950: #121110;
+
+	/* -- Surfaces ---------------------------------------------------------- */
+	--color-canvas: #faf9f5;
+	--color-surface: #ffffff;
+	--color-surface-muted: #f1f0ec;
+	--color-surface-sunken: #eceae3;
+	--color-line: #e7e5de;
+	--color-line-strong: #d6d3c8;
+
+	/* -- Status ------------------------------------------------------------ */
+	--color-success-50: #eaf6f1;
+	--color-success-500: #147d5b;
+	--color-success-700: #0e5a41;
+	--color-warning-50: #fdf4e6;
+	--color-warning-500: #b76e00;
+	--color-warning-700: #8a5300;
+	--color-danger-50: #fcefef;
+	--color-danger-500: #b4232a;
+	--color-danger-700: #8b1a20;
+	--color-info-50: #eaf2f9;
+	--color-info-500: #1d6ca8;
+	--color-info-700: #15507d;
+
+	/* -- Radii ------------------------------------------------------------- */
+	--radius-field: 0.625rem;
+	--radius-card: 1rem;
+	--radius-panel: 1.5rem;
+
+	/* -- Elevation --------------------------------------------------------- */
+	--shadow-subtle: 0 1px 2px 0 rgb(28 27 25 / 0.04),
+		0 1px 3px 0 rgb(28 27 25 / 0.06);
+	--shadow-raised: 0 2px 4px -2px rgb(28 27 25 / 0.06),
+		0 8px 16px -6px rgb(28 27 25 / 0.1);
+	--shadow-elevated: 0 4px 8px -4px rgb(28 27 25 / 0.08),
+		0 24px 48px -16px rgb(28 27 25 / 0.16);
+	--shadow-brand: 0 12px 28px -12px rgb(2 0 121 / 0.45);
+
+	/* -- Motion ------------------------------------------------------------ */
+	--animate-fade-in: fade-in 0.4s ease-out both;
+	--animate-rise: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+	--animate-shimmer: shimmer 1.6s linear infinite;
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	@keyframes shimmer {
+		from {
+			background-position: -200% 0;
+		}
+		to {
+			background-position: 200% 0;
+		}
+	}
+}
+
+/* Keep daisyUI's semantic palette aligned with the Aruna brand so any
+   daisyUI component dropped in by the team inherits the right colours. */
+:root,
+[data-theme='light'] {
+	--color-base-100: #ffffff;
+	--color-base-200: #faf9f5;
+	--color-base-300: #f1f0ec;
+	--color-base-content: #1c1b19;
+	--color-primary: #020079;
+	--color-primary-content: #ffffff;
+	--color-secondary: #b52a63;
+	--color-secondary-content: #ffffff;
+	--color-neutral: #2e2d2a;
+	--color-neutral-content: #f7f7f6;
+	--radius-selector: 0.625rem;
+	--radius-field: 0.625rem;
+	--radius-box: 1rem;
+}
+
+@layer base {
+	html {
+		-webkit-text-size-adjust: 100%;
+		scroll-behavior: smooth;
+	}
+
+	body {
+		background-color: var(--color-canvas);
+		color: var(--color-ink-900);
+		font-family: var(--font-sans);
+		font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	::selection {
+		background-color: var(--color-brand-900);
+		color: #ffffff;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--color-brand-600);
+		outline-offset: 2px;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		text-wrap: balance;
+	}
+}
+
+@layer utilities {
+	/* Hides scrollbars on horizontally scrollable rails (filter chips, tabs). */
+	.scrollbar-none {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.scrollbar-none::-webkit-scrollbar {
+		display: none;
+	}
+
+	.text-balance {
+		text-wrap: balance;
+	}
+
+	.bg-grid {
+		background-image: linear-gradient(
+				to right,
+				rgb(2 0 121 / 0.045) 1px,
+				transparent 1px
+			),
+			linear-gradient(to bottom, rgb(2 0 121 / 0.045) 1px, transparent 1px);
+		background-size: 56px 56px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
