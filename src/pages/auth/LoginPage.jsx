@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { Checkbox } from '../../components/ui/Checkbox';
 import { Input } from '../../components/ui/Input';
 import { ROUTES } from '../../constants/routes';
+import { canAccessApp, landingRouteFor } from '../../app/router/landingRoute';
 import { useAuth } from '../../hooks/useAuth';
 import { useForm } from '../../hooks/useForm';
 import { useToast } from '../../hooks/useToast';
@@ -26,10 +27,17 @@ export const LoginPage = () => {
 		},
 		onSubmit: async (values) => {
 			const user = await login({ email: values.email, password: values.password });
-			toast.success(`Welcome back, ${user.name.split(' ')[0]}.`);
-			navigate(user.onboardingComplete ? redirectTo : ROUTES.onboarding, {
-				replace: true,
-			});
+
+			// A member still awaiting (or refused) verification must land on the
+			// holding screen even if they were originally headed somewhere else.
+			const destination = landingRouteFor(user);
+			const goToRequested = canAccessApp(user) && user.onboardingComplete;
+
+			if (canAccessApp(user)) {
+				toast.success(`Welcome back, ${user.name.split(' ')[0]}.`);
+			}
+
+			navigate(goToRequested ? redirectTo : destination, { replace: true });
 		},
 	});
 
@@ -64,7 +72,7 @@ export const LoginPage = () => {
 					labelAddon={
 						<Link
 							to={ROUTES.login}
-							className="text-xs font-semibold text-brand-900 hover:underline"
+							className="text-xs font-semibold text-brand-700 hover:underline"
 						>
 							Forgot password?
 						</Link>
@@ -95,7 +103,7 @@ export const LoginPage = () => {
 				New to Aruna?{' '}
 				<Link
 					to={ROUTES.signup}
-					className="font-semibold text-brand-900 hover:underline"
+					className="font-semibold text-brand-700 hover:underline"
 				>
 					Create an account
 				</Link>

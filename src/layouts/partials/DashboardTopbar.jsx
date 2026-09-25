@@ -47,17 +47,22 @@ export const DashboardTopbar = ({ onOpenSidebar }) => {
 		}
 	};
 
+	// Staff have no member-facing profile, so that entry is dropped for them.
 	const menuItems = [
-		{ label: 'My profile', to: ROUTES.profile, icon: 'user' },
+		...(role === ROLES.ADMIN
+			? []
+			: [{ label: 'My profile', to: ROUTES.profile, icon: 'user' }]),
 		{ label: 'Settings', to: ROUTES.settings, icon: 'settings' },
 	];
 
 	// The search shortcut points at whichever surface that role actually
 	// searches, so it never lands on a page their navigation does not offer.
 	const search =
-		role === ROLES.COMPANY
-			? { to: ROUTES.companyApplicants, label: 'Search your postings and applicants' }
-			: { to: ROUTES.jobs, label: 'Search roles, mentors and workshops' };
+		role === ROLES.ADMIN
+			? { to: ROUTES.adminApprovals, label: 'Search accounts awaiting review' }
+			: role === ROLES.COMPANY
+				? { to: ROUTES.companyApplicants, label: 'Search your postings and applicants' }
+				: { to: ROUTES.jobs, label: 'Search roles, mentors and workshops' };
 
 	return (
 		<header className="sticky top-0 z-30 flex h-18 items-center gap-3 border-b border-line bg-canvas/90 px-4 backdrop-blur-md sm:px-6 lg:px-8">

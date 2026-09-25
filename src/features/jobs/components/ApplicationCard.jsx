@@ -21,7 +21,7 @@ export const ApplicationCard = ({ application, onWithdraw, isWithdrawing = false
 					<h3 className="font-display text-base font-semibold tracking-tight text-ink-900">
 						<Link
 							to={ROUTES.jobDetail(application.jobId)}
-							className="hover:text-brand-900 hover:underline"
+							className="hover:text-brand-700 hover:underline"
 						>
 							{application.jobTitle}
 						</Link>

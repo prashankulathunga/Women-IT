@@ -40,8 +40,10 @@ export const MarketingHeader = () => {
 					: 'border-b border-transparent bg-transparent',
 			)}
 		>
-			<Container className="flex h-18 items-center justify-between gap-6 py-3">
-				<Logo />
+			<Container className="flex h-18 items-center justify-between gap-3 py-3 sm:gap-6">
+				{/* The tagline is dropped on phones: signed out, the bar also carries
+				    two actions plus the menu trigger, which will not otherwise fit. */}
+				<Logo taglineClassName="hidden sm:block" />
 
 				<nav
 					aria-label="Primary"
@@ -61,7 +63,8 @@ export const MarketingHeader = () => {
 				<div className="flex items-center gap-2">
 					{isAuthenticated ? (
 						<Button to={ROUTES.dashboard} size="sm" trailingIcon="arrow-right">
-							Go to dashboard
+							<span className="sm:hidden">Dashboard</span>
+							<span className="hidden sm:inline">Go to dashboard</span>
 						</Button>
 					) : (
 						<>
@@ -74,7 +77,8 @@ export const MarketingHeader = () => {
 								Log in
 							</Button>
 							<Button to={ROUTES.signup} size="sm">
-								Join the network
+								<span className="sm:hidden">Join</span>
+								<span className="hidden sm:inline">Join the network</span>
 							</Button>
 						</>
 					)}

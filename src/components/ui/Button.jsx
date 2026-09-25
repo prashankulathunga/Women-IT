@@ -14,17 +14,17 @@ const BASE =
 
 const VARIANTS = {
 	primary:
-		'bg-brand-900 text-white shadow-subtle hover:bg-brand-800 hover:shadow-brand active:bg-brand-950',
+		'bg-brand-600 text-white shadow-subtle hover:bg-brand-700 hover:shadow-brand active:bg-brand-800',
 	secondary:
 		'bg-white text-ink-900 ring-1 ring-inset ring-line-strong hover:bg-ink-50 active:bg-ink-100',
 	accent:
 		'bg-plum-600 text-white shadow-subtle hover:bg-plum-700 active:bg-plum-800',
 	ghost: 'bg-transparent text-ink-700 hover:bg-ink-100/70 active:bg-ink-200/70',
-	subtle: 'bg-brand-50 text-brand-900 hover:bg-brand-100 active:bg-brand-200',
+	subtle: 'bg-brand-50 text-brand-700 hover:bg-brand-100 active:bg-brand-200',
 	danger: 'bg-danger-500 text-white hover:bg-danger-700 active:bg-danger-700',
 	outline:
-		'bg-transparent text-brand-900 ring-1 ring-inset ring-brand-900/25 hover:bg-brand-50 active:bg-brand-100',
-	link: 'bg-transparent text-brand-900 underline-offset-4 hover:underline px-0',
+		'bg-transparent text-brand-700 ring-1 ring-inset ring-brand-600/30 hover:bg-brand-50 active:bg-brand-100',
+	link: 'bg-transparent text-brand-700 underline-offset-4 hover:underline px-0',
 };
 
 const SIZES = {

@@ -9,6 +9,10 @@ export const ROUTES = {
 	signup: '/signup',
 	onboarding: '/onboarding',
 
+	// Identity verification gates for the woman-in-tech role.
+	awaitingApproval: '/awaiting-approval',
+	accountDeclined: '/account-declined',
+
 	dashboard: '/app',
 	profile: '/app/profile',
 	settings: '/app/settings',
@@ -27,6 +31,8 @@ export const ROUTES = {
 
 	companyPostings: '/app/postings',
 	companyApplicants: '/app/applicants',
+
+	adminApprovals: '/app/approvals',
 
 	notFound: '*',
 };

@@ -99,7 +99,7 @@ export const CompanyOverview = () => {
 									<h3 className="truncate font-display text-base font-semibold tracking-tight text-ink-900">
 										<Link
 											to={ROUTES.jobDetail(posting.id)}
-											className="hover:text-brand-900 hover:underline"
+											className="hover:text-brand-700 hover:underline"
 										>
 											{posting.title}
 										</Link>

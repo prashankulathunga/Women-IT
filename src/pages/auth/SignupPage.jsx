@@ -5,7 +5,9 @@ import { Checkbox } from '../../components/ui/Checkbox';
 import { Input } from '../../components/ui/Input';
 import { OptionCard } from '../../components/ui/OptionCard';
 import { Progress } from '../../components/ui/Progress';
-import { ROLES, ROLE_LIST, ROLE_META } from '../../constants/roles';
+import { ROLES, ROLE_META, SIGNUP_ROLES, requiresApproval } from '../../constants/roles';
+import { WebcamCapture } from '../../features/verification/components/WebcamCapture';
+import { Icon } from '../../components/icons/Icon';
 import { ROUTES } from '../../constants/routes';
 import { useAuth } from '../../hooks/useAuth';
 import { useForm } from '../../hooks/useForm';
@@ -36,6 +38,7 @@ export const SignupPage = () => {
 			name: '',
 			email: '',
 			password: '',
+			photoDataUrl: null,
 			terms: false,
 		},
 		validationSchema: {
@@ -47,14 +50,34 @@ export const SignupPage = () => {
 			email: [rules.required('Enter your email address'), rules.email()],
 			password: [rules.required('Choose a password'), rules.strongPassword()],
 			terms: [rules.accepted('Please accept the terms to continue')],
+			// Only the woman-in-tech role is verified, so the photo is only
+			// required when that role is selected.
+			photoDataUrl: [
+				(value, values) =>
+					requiresApproval(values.role) && !value
+						? 'Capture a live photo to continue'
+						: undefined,
+			],
 		},
 		onSubmit: async (values) => {
-			await register({
+			const created = await register({
 				name: values.name,
 				email: values.email,
 				password: values.password,
 				role: values.role,
+				photoDataUrl: values.photoDataUrl,
 			});
+
+			// Verified roles go to the holding screen; everyone else keeps the
+			// behaviour they had before approval existed.
+			if (requiresApproval(created.role)) {
+				toast.success(
+					'Your photo is with our team. We will let you know as soon as it is reviewed.',
+					'Account submitted',
+				);
+				navigate(ROUTES.awaitingApproval, { replace: true });
+				return;
+			}
 
 			toast.success('Account created. Let us set up your profile.', 'Welcome to Aruna');
 			navigate(ROUTES.onboarding, { replace: true });
@@ -62,6 +85,7 @@ export const SignupPage = () => {
 	});
 
 	const strength = passwordStrength(form.values.password);
+	const isVerifiedRole = requiresApproval(form.values.role);
 
 	return (
 		<div>
@@ -81,7 +105,7 @@ export const SignupPage = () => {
 					</legend>
 
 					<div className="space-y-2.5">
-						{ROLE_LIST.map((role) => (
+						{SIGNUP_ROLES.map((role) => (
 							<OptionCard
 								key={role}
 								name="role"
@@ -140,6 +164,31 @@ export const SignupPage = () => {
 					</div>
 				</div>
 
+				{isVerifiedRole && (
+					<fieldset className="rounded-card border border-line bg-surface-muted/60 p-4 sm:p-5">
+						<legend className="flex items-center gap-2 px-1 text-[13px] font-semibold text-ink-800">
+							<Icon name="shield" size="xs" className="text-brand-700" />
+							Live photo verification
+							<span className="text-plum-600" aria-hidden="true">
+								*
+							</span>
+						</legend>
+
+						<p className="mt-1 mb-4 text-xs leading-relaxed text-ink-500">
+							Aruna is a women-only community, so every member account is checked by
+							a person before it opens. Take a live photo now — it is shown only to
+							our review team, never on your profile.
+						</p>
+
+						<WebcamCapture
+							value={form.values.photoDataUrl}
+							onChange={(photo) => form.setFieldValue('photoDataUrl', photo)}
+							error={form.touched.photoDataUrl ? form.errors.photoDataUrl : undefined}
+							disabled={form.isSubmitting}
+						/>
+					</fieldset>
+				)}
+
 				<Checkbox
 					name="terms"
 					label="I agree to the Terms of Service and Privacy Policy"
@@ -154,16 +203,23 @@ export const SignupPage = () => {
 					fullWidth
 					size="lg"
 					isLoading={form.isSubmitting}
-					loadingText="Creating your account"
+					loadingText={isVerifiedRole ? 'Submitting for review' : 'Creating your account'}
 					trailingIcon="arrow-right"
+					disabled={isVerifiedRole && !form.values.photoDataUrl}
 				>
-					Create account
+					{isVerifiedRole ? 'Submit for review' : 'Create account'}
 				</Button>
+
+				{isVerifiedRole && !form.values.photoDataUrl && (
+					<p className="-mt-3 text-center text-xs text-ink-400">
+						Capture your photo above to enable this button.
+					</p>
+				)}
 			</form>
 
 			<p className="mt-8 text-center text-sm text-ink-500">
 				Already have an account?{' '}
-				<Link to={ROUTES.login} className="font-semibold text-brand-900 hover:underline">
+				<Link to={ROUTES.login} className="font-semibold text-brand-700 hover:underline">
 					Log in
 				</Link>
 			</p>

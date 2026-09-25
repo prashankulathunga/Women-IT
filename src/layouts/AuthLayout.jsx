@@ -32,7 +32,7 @@ export const AuthLayout = () => (
 				<Logo showTagline={false} />
 				<Link
 					to={ROUTES.home}
-					className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-500 transition-colors hover:text-brand-900"
+					className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-500 transition-colors hover:text-brand-700"
 				>
 					<Icon name="arrow-left" size="xs" />
 					Back to site

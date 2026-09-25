@@ -137,3 +137,51 @@ export const REQUEST_STATUS_META = {
 /** Lookup helper for `value -> label` on any option list above. */
 export const labelFor = (options, value, fallback = '—') =>
 	options.find((option) => option.value === value)?.label ?? fallback;
+
+/* -------------------------------------------------------------------------
+   Identity verification
+   Only the woman-in-tech role is gated; every other role is created with
+   NOT_REQUIRED and behaves exactly as it did before approval existed.
+   ------------------------------------------------------------------------- */
+
+export const APPROVAL_STATUS = {
+	NOT_REQUIRED: 'not_required',
+	PENDING: 'pending',
+	APPROVED: 'approved',
+	DECLINED: 'declined',
+};
+
+export const APPROVAL_STATUS_META = {
+	[APPROVAL_STATUS.NOT_REQUIRED]: { label: 'Not required', tone: 'neutral' },
+	[APPROVAL_STATUS.PENDING]: { label: 'Pending review', tone: 'warning' },
+	[APPROVAL_STATUS.APPROVED]: { label: 'Approved', tone: 'success' },
+	[APPROVAL_STATUS.DECLINED]: { label: 'Declined', tone: 'danger' },
+};
+
+/** Reasons an admin can pick when declining, so decline copy stays consistent. */
+export const DECLINE_REASONS = [
+	{
+		value: 'photo-unclear',
+		label: 'Photo unclear',
+		message:
+			'We could not clearly make out your photo. Retake it somewhere better lit, facing the camera.',
+	},
+	{
+		value: 'photo-mismatch',
+		label: 'Photo does not show a person',
+		message:
+			'The capture did not appear to show a live person. Please retake it yourself, on camera.',
+	},
+	{
+		value: 'details-incomplete',
+		label: 'Details incomplete',
+		message:
+			'The name or email on the account did not look complete. Correct them and resubmit.',
+	},
+	{
+		value: 'not-eligible',
+		label: 'Not eligible for this community',
+		message:
+			'This account does not meet the criteria for Aruna membership. If you believe this is a mistake, contact us.',
+	},
+];

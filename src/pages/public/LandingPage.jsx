@@ -207,7 +207,7 @@ export const LandingPage = () => {
 					</p>
 				</div>
 
-				<div className="mt-12 grid gap-5 lg:grid-cols-3">
+				<div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 					{PILLARS.map((pillar) => (
 						<Card key={pillar.title} padding="lg" className="flex flex-col">
 							<span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-900 text-white">
@@ -258,7 +258,7 @@ export const LandingPage = () => {
 					</Button>
 				</div>
 
-				<div className="mt-10 grid gap-4 lg:grid-cols-3">
+				<div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					{jobsLoading
 						? Array.from({ length: 3 }).map((_, index) => <SkeletonCard key={index} />)
 						: jobs?.map((job) => <JobCard key={job.id} job={job} />)}
@@ -286,7 +286,7 @@ export const LandingPage = () => {
 					</Button>
 				</div>
 
-				<div className="mt-10 grid gap-4 lg:grid-cols-3">
+				<div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					{mentorsLoading
 						? Array.from({ length: 3 }).map((_, index) => <SkeletonCard key={index} />)
 						: mentors?.map((mentor) => (
@@ -310,11 +310,11 @@ export const LandingPage = () => {
 					</p>
 				</div>
 
-				<div className="mt-12 grid gap-5 lg:grid-cols-3">
+				<div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 					{workshops?.map((workshop) => (
 						<div
 							key={workshop.id}
-							className="flex flex-col rounded-card bg-white/[0.07] p-6 ring-1 ring-inset ring-white/12"
+							className="flex min-w-0 flex-col rounded-card bg-white/[0.07] p-6 ring-1 ring-inset ring-white/12"
 						>
 							<div className="flex items-center gap-2">
 								<Badge tone="inverse" size="sm" className="bg-white/15 ring-white/20">
@@ -358,9 +358,9 @@ export const LandingPage = () => {
 					</h2>
 				</div>
 
-				<div className="mt-12 grid gap-8 lg:grid-cols-3">
+				<div className="mt-12 grid gap-8 sm:grid-cols-3">
 					{STEPS.map((step) => (
-						<div key={step.number} className="border-t-2 border-brand-900 pt-5">
+						<div key={step.number} className="min-w-0 border-t-2 border-brand-600 pt-5">
 							<p className="font-display text-sm font-semibold tracking-widest text-brand-900">
 								{step.number}
 							</p>
@@ -390,17 +390,17 @@ export const LandingPage = () => {
 					</Button>
 				</div>
 
-				<div className="mt-10 grid gap-4 lg:grid-cols-3">
+				<div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					{posts?.map((post) => (
 						<BlogCard key={post.slug} post={post} />
 					))}
 				</div>
 
-				<div className="mt-12 grid gap-5 lg:grid-cols-3">
+				<div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 					{TESTIMONIALS.map((testimonial) => (
 						<figure
 							key={testimonial.name}
-							className="rounded-card border border-line bg-white p-6"
+							className="min-w-0 rounded-card border border-line bg-white p-6"
 						>
 							<Icon name="quote" size="md" className="text-plum-500" />
 							<blockquote className="mt-3 text-sm leading-relaxed text-ink-700">

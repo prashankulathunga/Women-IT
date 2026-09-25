@@ -20,7 +20,7 @@ export const PageHeader = ({
 		{backTo && (
 			<Link
 				to={backTo}
-				className="mb-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-500 transition-colors hover:text-brand-900"
+				className="mb-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-500 transition-colors hover:text-brand-700"
 			>
 				<Icon name="arrow-left" size="xs" />
 				{backLabel}

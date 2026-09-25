@@ -60,7 +60,7 @@ export const MentorsPage = () => {
 				<ErrorState message={error} onRetry={refetch} />
 			) : data?.items.length > 0 ? (
 				<>
-					<div className="grid gap-4 lg:grid-cols-2">
+					<div className="grid gap-4 md:grid-cols-2">
 						{data.items.map((mentor) => (
 							<MentorCard key={mentor.id} mentor={mentor} />
 						))}

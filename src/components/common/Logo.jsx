@@ -16,6 +16,8 @@ export const Logo = ({
 	to = ROUTES.home,
 	inverted = false,
 	showTagline = true,
+	/** Lets a tight container (the marketing header) drop the tagline on phones. */
+	taglineClassName,
 	className,
 }) => {
 	const scale = SIZES[size] ?? SIZES.md;
@@ -32,17 +34,17 @@ export const Logo = ({
 				<svg viewBox="0 0 24 24" fill="none" className="h-[62%] w-[62%]" aria-hidden="true">
 					<path
 						d="M3 18h18"
-						stroke={inverted ? '#020079' : '#ffffff'}
+						stroke={inverted ? '#780ac2' : '#ffffff'}
 						strokeWidth="2"
 						strokeLinecap="round"
 					/>
 					<path
 						d="M5.5 18a6.5 6.5 0 0 1 13 0"
-						stroke={inverted ? '#020079' : '#ffffff'}
+						stroke={inverted ? '#780ac2' : '#ffffff'}
 						strokeWidth="2"
 						strokeLinecap="round"
 					/>
-					<circle cx="12" cy="7.5" r="1.6" fill={inverted ? '#b52a63' : '#e2709f'} />
+					<circle cx="12" cy="7.5" r="1.6" fill={inverted ? '#b62a8c' : '#d59efa'} />
 				</svg>
 			</span>
 
@@ -62,6 +64,7 @@ export const Logo = ({
 							'mt-0.5 font-semibold uppercase tracking-[0.18em]',
 							inverted ? 'text-white/60' : 'text-ink-400',
 							scale.sub,
+							taglineClassName,
 						)}
 					>
 						Women in Sri Lankan IT

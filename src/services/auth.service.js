@@ -1,6 +1,15 @@
-import { ROLES } from '../constants/roles';
+import { APPROVAL_STATUS } from '../constants/options';
+import { ROLES, requiresApproval } from '../constants/roles';
 import { storage, STORAGE_KEYS } from '../lib/storage';
 import { ApiError, createId, request } from './mockClient';
+import {
+	digest,
+	findUserByEmail,
+	findUserById,
+	insertUser,
+	toPublicUser,
+	updateUserById,
+} from './userStore';
 
 /**
  * Mock identity service.
@@ -8,28 +17,9 @@ import { ApiError, createId, request } from './mockClient';
  * NOTE: credentials are never verified in the browser in a real deployment.
  * This module exists so the UI can be built and demoed end-to-end; when the
  * API lands, each function below becomes an HTTP call with the same signature.
- * Passwords are digested rather than stored verbatim purely so that a demo
- * database never contains readable secrets.
+ * All reads and writes go through `userStore` so the approval flow has a
+ * single source of truth.
  */
-
-const digest = (value) => {
-	let hash = 0;
-	for (let index = 0; index < value.length; index += 1) {
-		hash = (hash << 5) - hash + value.charCodeAt(index);
-		hash |= 0;
-	}
-	return `d${Math.abs(hash).toString(36)}`;
-};
-
-const readUsers = () => storage.get(STORAGE_KEYS.users, []);
-const writeUsers = (users) => storage.set(STORAGE_KEYS.users, users);
-
-/** Strips the credential digest before a record leaves the service. */
-const publicUser = (user) => {
-	const safe = { ...user };
-	delete safe.passwordDigest;
-	return safe;
-};
 
 const emptyProfileFor = (role) => {
 	const base = {
@@ -83,6 +73,7 @@ const emptyProfileFor = (role) => {
 /** Percentage of profile fields completed — drives the dashboard nudge. */
 export const profileCompletion = (user) => {
 	if (!user) return 0;
+	if (user.role === ROLES.ADMIN) return 100;
 
 	const profile = user.profile ?? {};
 	const required =
@@ -106,20 +97,42 @@ export const authService = {
 		request(() => {
 			const session = storage.get(STORAGE_KEYS.session);
 			if (!session?.userId) return null;
-
-			const user = readUsers().find((item) => item.id === session.userId);
-			return user ? publicUser(user) : null;
+			return toPublicUser(findUserById(session.userId));
 		}, { delay: 120 }),
 
-	register: ({ name, email, password, role }) =>
+	/**
+	 * Re-reads one specific user straight from storage, synchronously.
+	 *
+	 * Takes an explicit id rather than following the session on purpose: the
+	 * session is a single shared localStorage key, so when an admin signs in
+	 * from a second tab of the same browser it overwrites the member's session.
+	 * The waiting tab must keep refreshing the account it is actually showing,
+	 * not whoever logged in last.
+	 */
+	refreshUserById: (userId) => {
+		if (!userId) return null;
+		return toPublicUser(findUserById(userId));
+	},
+
+	register: ({ name, email, password, role, photoDataUrl }) =>
 		request(() => {
-			const users = readUsers();
 			const normalisedEmail = String(email).trim().toLowerCase();
 
-			if (users.some((user) => user.email === normalisedEmail)) {
+			// Guards against a second account on the same email — including an
+			// already-approved member re-entering the signup flow.
+			if (findUserByEmail(normalisedEmail)) {
 				throw new ApiError('An account already exists for this email address.', {
 					status: 409,
 					fieldErrors: { email: 'This email is already registered' },
+				});
+			}
+
+			const gated = requiresApproval(role);
+
+			if (gated && !photoDataUrl) {
+				throw new ApiError('A live photo capture is required to create this account.', {
+					status: 422,
+					fieldErrors: { photoDataUrl: 'Capture a live photo to continue' },
 				});
 			}
 
@@ -129,21 +142,25 @@ export const authService = {
 				email: normalisedEmail,
 				role,
 				passwordDigest: digest(password),
+				approvalStatus: gated
+					? APPROVAL_STATUS.PENDING
+					: APPROVAL_STATUS.NOT_REQUIRED,
+				photoDataUrl: gated ? photoDataUrl : undefined,
+				signupAt: new Date().toISOString(),
 				onboardingComplete: false,
 				createdAt: new Date().toISOString(),
 				profile: emptyProfileFor(role),
 			};
 
-			writeUsers([...users, user]);
+			insertUser(user);
 			storage.set(STORAGE_KEYS.session, { userId: user.id });
 
-			return publicUser(user);
+			return toPublicUser(user);
 		}),
 
 	login: ({ email, password }) =>
 		request(() => {
-			const normalisedEmail = String(email).trim().toLowerCase();
-			const user = readUsers().find((item) => item.email === normalisedEmail);
+			const user = findUserByEmail(email);
 
 			if (!user || user.passwordDigest !== digest(password)) {
 				throw new ApiError('That email and password combination is not recognised.', {
@@ -152,7 +169,7 @@ export const authService = {
 			}
 
 			storage.set(STORAGE_KEYS.session, { userId: user.id });
-			return publicUser(user);
+			return toPublicUser(user);
 		}),
 
 	logout: () =>
@@ -164,52 +181,42 @@ export const authService = {
 	/** Patches the profile object and optionally flips the onboarding flag. */
 	updateProfile: (userId, patch, { completeOnboarding = false } = {}) =>
 		request(() => {
-			const users = readUsers();
-			const index = users.findIndex((user) => user.id === userId);
-
-			if (index === -1) {
+			const existing = findUserById(userId);
+			if (!existing) {
 				throw new ApiError('Your session has expired. Please log in again.', {
 					status: 401,
 				});
 			}
 
-			const existing = users[index];
 			const { name, ...profilePatch } = patch;
 
-			const updated = {
-				...existing,
+			const updated = updateUserById(userId, {
 				name: name?.trim() || existing.name,
 				onboardingComplete: completeOnboarding || existing.onboardingComplete,
 				profile: { ...existing.profile, ...profilePatch },
-				updatedAt: new Date().toISOString(),
-			};
+			});
 
-			users[index] = updated;
-			writeUsers(users);
-
-			return publicUser(updated);
+			return toPublicUser(updated);
 		}),
 
 	changePassword: (userId, { currentPassword, newPassword }) =>
 		request(() => {
-			const users = readUsers();
-			const index = users.findIndex((user) => user.id === userId);
+			const user = findUserById(userId);
 
-			if (index === -1) {
+			if (!user) {
 				throw new ApiError('Your session has expired. Please log in again.', {
 					status: 401,
 				});
 			}
 
-			if (users[index].passwordDigest !== digest(currentPassword)) {
+			if (user.passwordDigest !== digest(currentPassword)) {
 				throw new ApiError('Your current password is incorrect.', {
 					status: 403,
 					fieldErrors: { currentPassword: 'Incorrect password' },
 				});
 			}
 
-			users[index] = { ...users[index], passwordDigest: digest(newPassword) };
-			writeUsers(users);
+			updateUserById(userId, { passwordDigest: digest(newPassword) });
 			return true;
 		}),
 };

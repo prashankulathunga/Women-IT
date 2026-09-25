@@ -15,51 +15,56 @@
 		Roboto, Helvetica, Arial, sans-serif;
 	--font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
 
-	/* -- Brand: deep indigo ----------------------------------------------- */
-	--color-brand-50: #f2f2fb;
-	--color-brand-100: #e4e4f7;
-	--color-brand-200: #c6c6ef;
-	--color-brand-300: #9e9ee2;
-	--color-brand-400: #7070d2;
-	--color-brand-500: #4a4abe;
-	--color-brand-600: #3232a6;
-	--color-brand-700: #21218f;
-	--color-brand-800: #121284;
-	--color-brand-900: #020079;
-	--color-brand-950: #01004a;
+	/* -- Brand: purple ----------------------------------------------------
+	   Anchored on the three brand colours:
+	     300 #D59EFA  light accent, used on dark surfaces
+	     600 #780AC2  primary actions, focus rings
+	     900 #3C0561  deep panels, display headings
+	   ---------------------------------------------------------------------- */
+	--color-brand-50: #faf5ff;
+	--color-brand-100: #f4e9fe;
+	--color-brand-200: #e8ccfd;
+	--color-brand-300: #d59efa;
+	--color-brand-400: #a654de;
+	--color-brand-500: #8f2fd0;
+	--color-brand-600: #780ac2;
+	--color-brand-700: #66089f;
+	--color-brand-800: #520780;
+	--color-brand-900: #3c0561;
+	--color-brand-950: #26033e;
 
-	/* -- Accent: plum ------------------------------------------------------ */
-	--color-plum-50: #fdf2f6;
-	--color-plum-100: #fbe6ee;
-	--color-plum-200: #f6ccdd;
-	--color-plum-300: #eea3c2;
-	--color-plum-400: #e2709f;
-	--color-plum-500: #d0447e;
-	--color-plum-600: #b52a63;
-	--color-plum-700: #94204f;
-	--color-plum-800: #7a1e43;
-	--color-plum-900: #661c3b;
+	/* -- Accent: magenta, bridges the purple into warmer highlights -------- */
+	--color-plum-50: #fdf2fa;
+	--color-plum-100: #fbe6f5;
+	--color-plum-200: #f7cceb;
+	--color-plum-300: #efa3d9;
+	--color-plum-400: #e370c2;
+	--color-plum-500: #d344a8;
+	--color-plum-600: #b62a8c;
+	--color-plum-700: #942070;
+	--color-plum-800: #7a1e5c;
+	--color-plum-900: #661c4d;
 
-	/* -- Ink: warm neutral text + borders ---------------------------------- */
-	--color-ink-50: #f7f7f6;
-	--color-ink-100: #edede9;
-	--color-ink-200: #dedbd3;
-	--color-ink-300: #b8b6b0;
-	--color-ink-400: #8c8a84;
-	--color-ink-500: #6b6963;
-	--color-ink-600: #55534e;
-	--color-ink-700: #44423e;
-	--color-ink-800: #2e2d2a;
-	--color-ink-900: #1c1b19;
-	--color-ink-950: #121110;
+	/* -- Ink: cool neutral with a faint violet cast ------------------------ */
+	--color-ink-50: #f8f7fa;
+	--color-ink-100: #efedf3;
+	--color-ink-200: #dedae6;
+	--color-ink-300: #b9b3c4;
+	--color-ink-400: #8c859b;
+	--color-ink-500: #6b647a;
+	--color-ink-600: #554e63;
+	--color-ink-700: #443e50;
+	--color-ink-800: #2e2937;
+	--color-ink-900: #1c1823;
+	--color-ink-950: #120f17;
 
-	/* -- Surfaces ---------------------------------------------------------- */
-	--color-canvas: #faf9f5;
+	/* -- Surfaces: off-white with a hint of lilac so purple sits naturally - */
+	--color-canvas: #fbf9fd;
 	--color-surface: #ffffff;
-	--color-surface-muted: #f1f0ec;
-	--color-surface-sunken: #eceae3;
-	--color-line: #e7e5de;
-	--color-line-strong: #d6d3c8;
+	--color-surface-muted: #f4f0f8;
+	--color-surface-sunken: #ebe5f1;
+	--color-line: #e8e2ee;
+	--color-line-strong: #d8cfe2;
 
 	/* -- Status ------------------------------------------------------------ */
 	--color-success-50: #eaf6f1;
@@ -81,13 +86,13 @@
 	--radius-panel: 1.5rem;
 
 	/* -- Elevation --------------------------------------------------------- */
-	--shadow-subtle: 0 1px 2px 0 rgb(28 27 25 / 0.04),
-		0 1px 3px 0 rgb(28 27 25 / 0.06);
-	--shadow-raised: 0 2px 4px -2px rgb(28 27 25 / 0.06),
-		0 8px 16px -6px rgb(28 27 25 / 0.1);
-	--shadow-elevated: 0 4px 8px -4px rgb(28 27 25 / 0.08),
-		0 24px 48px -16px rgb(28 27 25 / 0.16);
-	--shadow-brand: 0 12px 28px -12px rgb(2 0 121 / 0.45);
+	--shadow-subtle: 0 1px 2px 0 rgb(28 24 35 / 0.04),
+		0 1px 3px 0 rgb(28 24 35 / 0.06);
+	--shadow-raised: 0 2px 4px -2px rgb(28 24 35 / 0.06),
+		0 8px 16px -6px rgb(28 24 35 / 0.1);
+	--shadow-elevated: 0 4px 8px -4px rgb(28 24 35 / 0.08),
+		0 24px 48px -16px rgb(28 24 35 / 0.16);
+	--shadow-brand: 0 12px 28px -12px rgb(120 10 194 / 0.45);
 
 	/* -- Motion ------------------------------------------------------------ */
 	--animate-fade-in: fade-in 0.4s ease-out both;
@@ -129,15 +134,15 @@
 :root,
 [data-theme='light'] {
 	--color-base-100: #ffffff;
-	--color-base-200: #faf9f5;
-	--color-base-300: #f1f0ec;
-	--color-base-content: #1c1b19;
-	--color-primary: #020079;
+	--color-base-200: #fbf9fd;
+	--color-base-300: #f4f0f8;
+	--color-base-content: #1c1823;
+	--color-primary: #780ac2;
 	--color-primary-content: #ffffff;
-	--color-secondary: #b52a63;
+	--color-secondary: #b62a8c;
 	--color-secondary-content: #ffffff;
-	--color-neutral: #2e2d2a;
-	--color-neutral-content: #f7f7f6;
+	--color-neutral: #2e2937;
+	--color-neutral-content: #f8f7fa;
 	--radius-selector: 0.625rem;
 	--radius-field: 0.625rem;
 	--radius-box: 1rem;
@@ -194,10 +199,10 @@
 	.bg-grid {
 		background-image: linear-gradient(
 				to right,
-				rgb(2 0 121 / 0.045) 1px,
+				rgb(120 10 194 / 0.05) 1px,
 				transparent 1px
 			),
-			linear-gradient(to bottom, rgb(2 0 121 / 0.045) 1px, transparent 1px);
+			linear-gradient(to bottom, rgb(120 10 194 / 0.05) 1px, transparent 1px);
 		background-size: 56px 56px;
 	}
 }

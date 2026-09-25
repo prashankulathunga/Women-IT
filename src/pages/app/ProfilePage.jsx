@@ -204,7 +204,7 @@ export const ProfilePage = () => {
 								href={profile.linkedin || profile.website}
 								target="_blank"
 								rel="noreferrer noopener"
-								className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand-900 hover:underline"
+								className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand-700 hover:underline"
 							>
 								<Icon name="external" size="xs" />
 								{profile.linkedin ? 'LinkedIn profile' : 'Company website'}

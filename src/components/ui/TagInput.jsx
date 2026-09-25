@@ -98,7 +98,7 @@ export const TagInput = ({
 							type="button"
 							onClick={() => removeTag(tag)}
 							aria-label={`Remove ${tag}`}
-							className="flex h-5 w-5 items-center justify-center rounded text-brand-700/70 transition-colors hover:bg-brand-200 hover:text-brand-900"
+							className="flex h-5 w-5 items-center justify-center rounded text-brand-700/70 transition-colors hover:bg-brand-200 hover:text-brand-700"
 						>
 							<Icon name="close" size="xs" strokeWidth={2.5} />
 						</button>
@@ -132,7 +132,7 @@ export const TagInput = ({
 							type="button"
 							onMouseDown={(event) => event.preventDefault()}
 							onClick={() => addTag(suggestion)}
-							className="inline-flex h-7 items-center gap-1 rounded-md border border-line-strong bg-white px-2.5 text-xs font-medium text-ink-600 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-900"
+							className="inline-flex h-7 items-center gap-1 rounded-md border border-line-strong bg-white px-2.5 text-xs font-medium text-ink-600 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
 						>
 							<Icon name="plus" size="xs" />
 							{suggestion}

@@ -28,7 +28,7 @@ export const MarketingFooter = () => (
 									<li key={link.label}>
 										<Link
 											to={link.to}
-											className="text-sm text-ink-600 transition-colors hover:text-brand-900"
+											className="text-sm text-ink-600 transition-colors hover:text-brand-700"
 										>
 											{link.label}
 										</Link>

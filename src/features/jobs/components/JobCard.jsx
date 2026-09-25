@@ -34,7 +34,7 @@ export const JobCard = ({ job, compact = false }) => {
 							<h3 className="truncate font-display text-base font-semibold tracking-tight text-ink-900">
 								<Link
 									to={ROUTES.jobDetail(job.id)}
-									className="outline-none after:absolute after:inset-0 after:content-[''] hover:text-brand-900"
+									className="outline-none after:absolute after:inset-0 after:content-[''] hover:text-brand-700"
 								>
 									{job.title}
 								</Link>

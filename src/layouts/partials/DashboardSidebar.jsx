@@ -89,7 +89,7 @@ export const DashboardSidebar = ({ onNavigate }) => {
 						<NavLink
 							to={ROUTES.profile}
 							onClick={onNavigate}
-							className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-900 hover:underline"
+							className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 hover:underline"
 						>
 							Finish setup
 							<Icon name="arrow-right" size="xs" />

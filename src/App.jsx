@@ -4,7 +4,9 @@ import {
 	ProtectedRoute,
 	PublicOnlyRoute,
 	RoleRoute,
+	VerificationRoute,
 } from './app/router/RouteGuards';
+import { APPROVAL_STATUS } from './constants/options';
 import { ROLES } from './constants/roles';
 import { ROUTES } from './constants/routes';
 import { AuthLayout } from './layouts/AuthLayout';
@@ -14,10 +16,13 @@ import { PublicLayout } from './layouts/PublicLayout';
 import { LandingPage } from './pages/public/LandingPage';
 import { NotFoundPage } from './pages/public/NotFoundPage';
 
+import { AccountDeclinedPage } from './pages/auth/AccountDeclinedPage';
+import { AwaitingApprovalPage } from './pages/auth/AwaitingApprovalPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { OnboardingPage } from './pages/auth/OnboardingPage';
 import { SignupPage } from './pages/auth/SignupPage';
 
+import { AdminApprovalsPage } from './pages/app/AdminApprovalsPage';
 import { ApplicationsPage } from './pages/app/ApplicationsPage';
 import { BlogDetailPage } from './pages/app/BlogDetailPage';
 import { BlogsPage } from './pages/app/BlogsPage';
@@ -59,6 +64,16 @@ function App() {
 					</Route>
 				</Route>
 
+				{/* Identity verification holding screens — session required, but the
+				    member is deliberately kept out of the product until decided */}
+				<Route element={<VerificationRoute allow={[APPROVAL_STATUS.PENDING]} />}>
+					<Route path={ROUTES.awaitingApproval} element={<AwaitingApprovalPage />} />
+				</Route>
+
+				<Route element={<VerificationRoute allow={[APPROVAL_STATUS.DECLINED]} />}>
+					<Route path={ROUTES.accountDeclined} element={<AccountDeclinedPage />} />
+				</Route>
+
 				{/* Profile capture — requires a session but not a finished profile */}
 				<Route element={<ProtectedRoute requireOnboarding={false} />}>
 					<Route path={ROUTES.onboarding} element={<OnboardingPage />} />
@@ -85,6 +100,11 @@ function App() {
 							<Route path={ROUTES.applications} element={<ApplicationsPage />} />
 							<Route path={ROUTES.mentors} element={<MentorsPage />} />
 							<Route path={ROUTES.mentorDetail()} element={<MentorDetailPage />} />
+						</Route>
+
+						{/* Staff only */}
+						<Route element={<RoleRoute allow={[ROLES.ADMIN]} />}>
+							<Route path={ROUTES.adminApprovals} element={<AdminApprovalsPage />} />
 						</Route>
 
 						{/* Employer partners only */}

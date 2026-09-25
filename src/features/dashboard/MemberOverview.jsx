@@ -109,7 +109,7 @@ export const MemberOverview = () => {
 				/>
 
 				{data.jobs.length > 0 ? (
-					<div className="grid gap-4 lg:grid-cols-2">
+					<div className="grid gap-4 md:grid-cols-2">
 						{data.jobs.map((job) => (
 							<JobCard key={job.id} job={job} />
 						))}
@@ -132,7 +132,7 @@ export const MemberOverview = () => {
 					linkLabel="Browse mentors"
 				/>
 
-				<div className="grid gap-4 lg:grid-cols-2">
+				<div className="grid gap-4 md:grid-cols-2">
 					{data.mentors.map((mentor) => (
 						<MentorCard key={mentor.id} mentor={mentor} />
 					))}
@@ -147,7 +147,7 @@ export const MemberOverview = () => {
 					linkLabel="All articles"
 				/>
 
-				<div className="grid gap-4 lg:grid-cols-3">
+				<div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
 					{data.blogs.map((post) => (
 						<BlogCard key={post.slug} post={post} />
 					))}

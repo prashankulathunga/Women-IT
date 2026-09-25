@@ -22,7 +22,7 @@ export const BlogCard = ({ post, compact = false }) => (
 		<h3 className="mt-3 font-display text-lg font-semibold leading-snug tracking-tight text-ink-900">
 			<Link
 				to={ROUTES.blogDetail(post.slug)}
-				className="outline-none after:absolute after:inset-0 after:content-[''] hover:text-brand-900"
+				className="outline-none after:absolute after:inset-0 after:content-[''] hover:text-brand-700"
 			>
 				{post.title}
 			</Link>

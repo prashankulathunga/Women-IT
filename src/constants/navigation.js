@@ -15,7 +15,18 @@ export const DASHBOARD_NAV = [
 				to: ROUTES.dashboard,
 				icon: 'grid',
 				end: true,
-				roles: [ROLES.MEMBER, ROLES.MENTOR, ROLES.COMPANY],
+				roles: [ROLES.MEMBER, ROLES.MENTOR, ROLES.COMPANY, ROLES.ADMIN],
+			},
+		],
+	},
+	{
+		title: 'Trust & safety',
+		items: [
+			{
+				label: 'Pending approvals',
+				to: ROUTES.adminApprovals,
+				icon: 'shield',
+				roles: [ROLES.ADMIN],
 			},
 		],
 	},
@@ -101,7 +112,7 @@ export const DASHBOARD_NAV = [
 				label: 'Settings',
 				to: ROUTES.settings,
 				icon: 'settings',
-				roles: [ROLES.MEMBER, ROLES.MENTOR, ROLES.COMPANY],
+				roles: [ROLES.MEMBER, ROLES.MENTOR, ROLES.COMPANY, ROLES.ADMIN],
 			},
 		],
 	},

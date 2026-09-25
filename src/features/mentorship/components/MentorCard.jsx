@@ -19,7 +19,7 @@ export const MentorCard = ({ mentor, compact = false }) => (
 						<h3 className="truncate font-display text-base font-semibold tracking-tight text-ink-900">
 							<Link
 								to={ROUTES.mentorDetail(mentor.id)}
-								className="outline-none after:absolute after:inset-0 after:content-[''] hover:text-brand-900"
+								className="outline-none after:absolute after:inset-0 after:content-[''] hover:text-brand-700"
 							>
 								{mentor.name}
 							</Link>
